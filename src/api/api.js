@@ -216,9 +216,16 @@ export const customersApi = {
       if (isNetworkError(error)) {
         const db = getLocalDb();
 
-        const emailExists = db.customers.some((c) => c.email.toLowerCase() === data.email.toLowerCase());
+        const emailExists = db.customers.some((c) => (c.email || '').toLowerCase() === (data.email || '').toLowerCase());
         if (emailExists) {
           throw { response: { status: 400, data: { detail: `Customer with email "${data.email}" already exists.` } } };
+        }
+
+        // Normalize phone numbers (digits only) and prevent duplicates
+        const normalizePhone = (p) => (p || '').toString().replace(/\D/g, '');
+        const phoneExists = db.customers.some((c) => normalizePhone(c.phone || c.phone_number) === normalizePhone(data.phone));
+        if (phoneExists) {
+          throw { response: { status: 400, data: { detail: `Customer with phone "${data.phone}" already exists.` } } };
         }
 
         const newCustomer = {

@@ -46,7 +46,12 @@ export default function Customers() {
       const message = typeof detail === 'string' ? detail : 'Failed to add customer';
       // Reflect the error back onto the email field if it is a duplicate
       if (detail && detail.toLowerCase().includes('already exists')) {
-        setErrorAdd('email', { type: 'server', message });
+        const lower = detail.toLowerCase();
+        if (lower.includes('phone')) {
+          setErrorAdd('phone', { type: 'server', message });
+        } else {
+          setErrorAdd('email', { type: 'server', message });
+        }
       } else {
         toast.error(message);
       }
@@ -79,11 +84,19 @@ export default function Customers() {
   });
 
   const onAddSubmit = (data) => {
+    const normalizePhone = (p) => (p || '').toString().replace(/\D/g, '');
+
     const emailExists = customers.some(
       (c) => (c.email || '').toLowerCase() === data.email.toLowerCase()
     );
     if (emailExists) {
       setErrorAdd('email', { type: 'manual', message: 'A customer with this email already exists' });
+      return;
+    }
+
+    const phoneExists = customers.some((c) => normalizePhone(c.phone || c.phone_number) === normalizePhone(data.phone));
+    if (phoneExists) {
+      setErrorAdd('phone', { type: 'manual', message: 'A customer with this mobile number already exists' });
       return;
     }
     createMutation.mutate({
