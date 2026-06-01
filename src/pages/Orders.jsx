@@ -380,10 +380,10 @@ export default function Orders() {
             </button>
             <button
               type="submit"
-              disabled={createMutation.isPending || blockSubmit}
+              disabled={createMutation.isLoading || blockSubmit}
               className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5"
             >
-              {createMutation.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+              {createMutation.isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
               Place Order
             </button>
           </div>
@@ -407,10 +407,10 @@ export default function Orders() {
             <button
               type="button"
               onClick={() => deleteMutation.mutate(deletingOrder.id)}
-              disabled={deleteMutation.isPending}
+              disabled={deleteMutation.isLoading}
               className="px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-500 rounded-lg transition-colors disabled:opacity-50 inline-flex items-center gap-1.5"
             >
-              {deleteMutation.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+              {deleteMutation.isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
               Confirm Delete
             </button>
           </div>

@@ -338,10 +338,10 @@ export default function Products() {
             </button>
             <button
               type="submit"
-              disabled={createMutation.isPending}
+              disabled={createMutation.isLoading}
               className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors disabled:opacity-50 inline-flex items-center gap-1.5"
             >
-              {createMutation.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+              {createMutation.isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
               Save Product
             </button>
           </div>
@@ -413,10 +413,10 @@ export default function Products() {
             </button>
             <button
               type="submit"
-              disabled={updateMutation.isPending}
+              disabled={updateMutation.isLoading}
               className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors disabled:opacity-50 inline-flex items-center gap-1.5"
             >
-              {updateMutation.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+              {updateMutation.isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
               Save Changes
             </button>
           </div>
@@ -440,10 +440,10 @@ export default function Products() {
             <button
               type="button"
               onClick={() => deleteMutation.mutate(deletingProduct.id)}
-              disabled={deleteMutation.isPending}
+              disabled={deleteMutation.isLoading}
               className="px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-500 rounded-lg transition-colors disabled:opacity-50 inline-flex items-center gap-1.5"
             >
-              {deleteMutation.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+              {deleteMutation.isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
               Confirm Delete
             </button>
           </div>

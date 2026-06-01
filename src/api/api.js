@@ -12,6 +12,10 @@ const apiClient = axios.create({
   timeout: 5000,
 });
 
+// Simple helper to notify user when offline/fallback to local DB is used.
+// No-op helper when offline; kept to avoid runtime ReferenceError.
+const notifyOffline = () => {};
+
 const getLocalDb = () => {
   const products = localStorage.getItem('mock_products');
   const customers = localStorage.getItem('mock_customers');
